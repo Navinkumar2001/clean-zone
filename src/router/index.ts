@@ -16,6 +16,6 @@ const routes = [
 ]
 
 export default createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/clean-zone/'),
   routes
 })
