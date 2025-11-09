@@ -214,7 +214,7 @@ const handleLogin = async () => {
     authStore.login(userData)
     
     setTimeout(() => {
-      router.push('/dashboard')
+      router.push('/')
     }, 1500)
     
   } catch (error) {
@@ -244,7 +244,7 @@ const simulateLogin = async () => {
         authStore.login(userData)
         
         setTimeout(() => {
-          router.push('/dashboard')
+          router.push('/')
         }, 1500)
         
         resolve(userData)

@@ -75,7 +75,7 @@
             📷 Nature Documentation
           </label>
           <div class="border-2 border-dashed border-green-300 rounded-xl p-6 text-center hover:border-green-500 transition-colors bg-green-50">
-            <input type="file" @change="handleImageUpload" accept="image/*" capture="environment" required class="w-full p-3 border-2 border-green-200 rounded-xl text-base focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all cursor-pointer">
+            <input type="file" @change="handleImageUpload" accept="image/*" required class="w-full p-3 border-2 border-green-200 rounded-xl text-base focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all cursor-pointer">
             <p class="text-green-600 text-sm mt-2">Capture the environmental impact</p>
           </div>
           <div v-if="imagePreview" class="mt-4 relative">
