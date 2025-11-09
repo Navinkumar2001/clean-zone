@@ -5,18 +5,24 @@
         <router-link to="/" class="text-xl font-bold text-white no-underline flex items-center gap-2">
           🌱 CleanZone
         </router-link>
-        <div class="flex gap-6 items-center">
+        
+        <!-- Mobile Menu Button -->
+        <button @click="toggleMobileMenu" class="md:hidden text-white p-2">
+          <span v-if="!showMobileMenu">☰</span>
+          <span v-else>✕</span>
+        </button>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-6 items-center">
           <router-link to="/" class="no-underline text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20">🏡 Home</router-link>
           <router-link to="/report" class="no-underline text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20">🌿 Report</router-link>
           <router-link to="/dashboard" class="no-underline text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20">🌳 Dashboard</router-link>
           
-          <!-- Auth Links (when not logged in) -->
           <template v-if="!authStore.isAuthenticated">
             <router-link to="/login" class="no-underline text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20">🔑 Login</router-link>
             <router-link to="/signup" class="no-underline text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20">🌱 Sign Up</router-link>
           </template>
           
-          <!-- Profile Menu (when logged in) -->
           <div v-if="authStore.isAuthenticated" class="relative">
             <button @click="toggleProfileMenu" class="flex items-center gap-2 text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20">
               👤 {{ authStore.user?.name }}
@@ -33,6 +39,29 @@
                 🚪 Logout
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div v-if="showMobileMenu" class="md:hidden bg-green-700 border-t border-green-500">
+        <div class="px-5 py-4 space-y-2">
+          <router-link to="/" @click="showMobileMenu = false" class="block text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20 no-underline">🏡 Home</router-link>
+          <router-link to="/report" @click="showMobileMenu = false" class="block text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20 no-underline">🌿 Report</router-link>
+          <router-link to="/dashboard" @click="showMobileMenu = false" class="block text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20 no-underline">🌳 Dashboard</router-link>
+          
+          <template v-if="!authStore.isAuthenticated">
+            <router-link to="/login" @click="showMobileMenu = false" class="block text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20 no-underline">🔑 Login</router-link>
+            <router-link to="/signup" @click="showMobileMenu = false" class="block text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20 no-underline">🌱 Sign Up</router-link>
+          </template>
+          
+          <div v-if="authStore.isAuthenticated" class="border-t border-green-600 pt-2">
+            <div class="px-3 py-2 text-white">
+              <p class="font-semibold">👤 {{ authStore.user?.name }}</p>
+              <p class="text-sm opacity-75">{{ authStore.user?.email }}</p>
+            </div>
+            <router-link to="/profile" @click="showMobileMenu = false" class="block text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20 no-underline">📝 Profile</router-link>
+            <button @click="() => { handleLogout(); showMobileMenu = false; }" class="block w-full text-left text-white font-medium hover:text-yellow-200 transition-all duration-200 px-3 py-2 rounded-lg hover:bg-white hover:bg-opacity-20">🚪 Logout</button>
           </div>
         </div>
       </div>
@@ -53,9 +82,14 @@ import Footer from './components/Footer.vue'
 const router = useRouter()
 const authStore = useAuthStore()
 const showProfileMenu = ref(false)
+const showMobileMenu = ref(false)
 
 const toggleProfileMenu = () => {
   showProfileMenu.value = !showProfileMenu.value
+}
+
+const toggleMobileMenu = () => {
+  showMobileMenu.value = !showMobileMenu.value
 }
 
 const handleLogout = () => {

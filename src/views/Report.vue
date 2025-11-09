@@ -75,7 +75,7 @@
             📷 Nature Documentation
           </label>
           <div class="border-2 border-dashed border-green-300 rounded-xl p-6 text-center hover:border-green-500 transition-colors bg-green-50">
-            <input type="file" @change="handleImageUpload" accept="image/*" required class="w-full p-3 border-2 border-green-200 rounded-xl text-base focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all cursor-pointer">
+            <input type="file" @change="handleImageUpload" accept="image/*" capture="user" required class="w-full p-3 border-2 border-green-200 rounded-xl text-base focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all cursor-pointer">
             <p class="text-green-600 text-sm mt-2">Capture the environmental impact</p>
           </div>
           <div v-if="imagePreview" class="mt-4 relative">
@@ -127,11 +127,12 @@
           <label class="block mb-3 font-semibold text-green-700 flex items-center gap-2">
             🌍 Location
           </label>
-          <button type="button" @click="getCurrentLocation" class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-2 cursor-pointer" :disabled="gettingLocation">
-            <span v-if="gettingLocation" class="animate-spin">🌱</span>
-            <span v-else">🌍</span>
-            {{ gettingLocation ? 'Locating Area...' : 'Find Nature Spot' }}
-          </button>
+          <div class="flex items-center gap-3">
+            <span class="text-green-700 font-medium">📍 Pin Location:</span>
+            <button type="button" @click="getCurrentLocation" class="text-green-600 hover:text-green-800 underline font-medium" :disabled="gettingLocation">
+              {{ gettingLocation ? 'Locating...' : 'Drop Location' }}
+            </button>
+          </div>
           <div v-if="form.location.lat" class="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl">
             <p class="text-green-700 font-medium flex items-center gap-2">
               ✅ Location captured successfully

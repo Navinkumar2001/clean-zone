@@ -16,6 +16,6 @@ const routes = [
 ]
 
 export default createRouter({
-  history: createWebHistory('/clean-zone/'),
+  history: createWebHistory(import.meta.env.PROD ? '/clean-zone/' : '/'),
   routes
 })
